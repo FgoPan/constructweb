@@ -1,0 +1,11 @@
+build
+jsdoc
+node_modules
+package.json
+package-lock.json
+pcopComponents
+pcopComponents.zip
+README.md
+src
+WEB-CONFIG
+.git
