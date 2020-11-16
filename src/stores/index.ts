@@ -1,25 +1,28 @@
 import { createContext } from 'react';
 import { types, Instance } from 'mobx-state-tree';
-import UserStore from './UserStore'
-import { Counter } from './Counter'
+import DictsStore from './DictsStore'
+import QuotaDataStore from './QuotaDataStoreA'
+import { createTypes, aggregateFuncTypes } from '@/config/dicts'
 
 const RootStore = types.model({
-    userStore: UserStore,
-    counter: Counter
+    dictsStore: DictsStore,
+    quotaDataStore: QuotaDataStore
 });
 
 const initialState = RootStore.create({
-    userStore: {
-        users: []
+    dictsStore: {
+        createTypes: createTypes,
+        aggregateFuncTypes: aggregateFuncTypes
     },
-    counter: {
-        count: 0
+    quotaDataStore: {
+        createType: '01',
+        data: []
     }
 });
 
 export const rootStore = initialState;
 
 export type RootInstance = Instance<typeof RootStore>;
-export const RootStoreContext = createContext < null | RootInstance > (null);
+export const RootStoreContext = createContext < null | RootInstance >(null);
 
 export const Provider = RootStoreContext.Provider;

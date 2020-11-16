@@ -1,9 +1,12 @@
 import React from 'react';
-import UserListView from './application/UserManage/UserListView';
+import { HashRouter as Router } from 'react-router-dom'
+import Layouts from './layouts/';
 
 const App = () => {
     return (
-        <UserListView />
+        <Router>
+            <Layouts />
+        </Router>
     );
 };
 

@@ -13,7 +13,7 @@
     "strict": true,
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -22,15 +22,24 @@
     "noEmit": false,
     "sourceMap": true,
     "experimentalDecorators": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "app/*": ["./src/application/*"],
+      "components/*": ["./src/components/*"],
+      "routers/*": ["./src/routers/*"],
+      "utils/*": ["./src/utils/*"],
+      "hooks/*": ["./src/hooks/*"]
+    }
   },
   "include": [
     "./src/**/*.tsx",
     "./src/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "build",
-    "dist"
+    "/node_modules",
+    "/build",
+    "/dist"
   ]
 }

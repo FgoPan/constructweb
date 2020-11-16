@@ -9,34 +9,39 @@
 
 module.exports = {
     extends: [
-        "plugin:react/recommended",
         'eslint:recommended',
+        'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended'
     ],
     // parser: 'babel-eslint',
     parser: '@typescript-eslint/parser',
-    plugins: [
-        '@typescript-eslint',
-        "react",
-    ],
-    settings: {
-        "react": {
-          "createClass": "createReactClass",
-          "pragma": "React",
-          "version": "16.13.1",
-          "flowVersion": "0.53"
-        },
-        "propWrapperFunctions": [
-          "forbidExtraProps"
-        ]
-    },
     parserOptions: {
-        ecmaVersion: 6,
+        ecmaVersion: 2020,
+        // project: '/tsconfig.json',
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true,
             modules: true
-        }
+        },
+        warnOnUnsupportedTypeScriptVersion: false,
+    },
+
+    plugins: [
+        'react',
+        '@typescript-eslint',
+    ],
+    settings: {
+        'react': {
+            'version': 'detect'
+        },
+        'propWrapperFunctions': [
+            'forbidExtraProps'
+        ],
+        'import/resolver': {
+            'node': {
+                'extensions': ['.js', '.jsx', '.ts', '.tsx']
+            }
+        },
     },
     env: {
         browser: true,
@@ -47,7 +52,14 @@ module.exports = {
     // 以当前目录为根目录，不再向上查找 .eslintrc.js
     root: true,
     rules: {
-        "@typescript-eslint/rule-name": "error",
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': ['error'],
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        'react/jsx-filename-extension': [
+            1,
+            { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }
+        ],
         // 可能的错误
         // 这些规则与 JavaScript 代码中可能的语法错误或逻辑错误有关
         // 禁止 for 循环出现方向错误的循环，比如 for (i = 0; i < 10; i--)
@@ -444,14 +456,14 @@ module.exports = {
             }
         ],
         // 变量必须先定义后使用
-        'no-use-before-define': [
-            'error',
-            {
-                functions: false,
-                classes: false,
-                variables: false
-            }
-        ],
+        // 'no-use-before-define': [
+        //     'error',
+        //     {
+        //         functions: false,
+        //         classes: false,
+        //         variables: false
+        //     }
+        // ],
 
         // Node.js 和 CommonJS
         // 这些规则与在 Node.js 中运行的代码或浏览器中使用的 CommonJS 有关
@@ -770,8 +782,8 @@ module.exports = {
         'padded-blocks': 'off',
         // @fixable 限制语句之间的空行规则，比如变量定义完之后必须要空行
         'padding-line-between-statements': [
-            "error",
-            { "blankLine": "always", "prev": "import", "next": "class" }
+            'error',
+            { 'blankLine': 'always', 'prev': 'import', 'next': 'class' }
         ],
         // @fixable 对象字面量的键名禁止用引号括起来
         // @off 没必要限制
@@ -789,13 +801,13 @@ module.exports = {
         // @off 太严格了
         'require-jsdoc': 'off',
         // @fixable 结尾必须有分号
-        /*'semi': [
+        /* 'semi': [
             'error',
             'always',
             {
                 omitLastInOneLineBlock: true
             }
-        ],*/
+        ], */
         // @fixable 一行有多个语句时，分号前面禁止有空格，分号后面必须有空格
         'semi-spacing': [
             'error',
@@ -988,6 +1000,6 @@ module.exports = {
     },
     globals: {
         _: true,
-        $:true
+        $: true
     },
 };
