@@ -10,10 +10,6 @@ const devConfig = {
 
   devtool: 'source-map',
 
-  plugins: [
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
   devServer: {
     hot: true,
     contentBase: path.join(__dirname, '../dist'),

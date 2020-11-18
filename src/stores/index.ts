@@ -16,13 +16,14 @@ const initialState = RootStore.create({
     },
     quotaDataStore: {
         createType: '01',
-        data: []
+        data: {},
+        list: {}
     }
 });
 
 export const rootStore = initialState;
 
 export type RootInstance = Instance<typeof RootStore>;
-export const RootStoreContext = createContext < null | RootInstance >(null);
+export const RootStoreContext = createContext<null | RootInstance>(null);
 
 export const Provider = RootStoreContext.Provider;

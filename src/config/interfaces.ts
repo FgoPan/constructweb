@@ -1,39 +1,32 @@
-interface Common {
-    _dictName?: 'string'
-    _dataType?: 'string'
+// 表格列通用接口
+export interface ITableColumnCommon {
+    id?: string
+    title?: string
+    dataIndex?: string
+    align?: string
+    width?: string|number
+    dictName?: string
+    dataType?: string
+    format?: string
+    render?: (text, record, index) => any
 }
 
 // 指标
-export interface Quota extends Common {
+export interface Quota {
     id: string; // id
     name: string; // 名称
     displayName: string; // 显示名称
     createType: string; // 创建方式
     dataType: string; // 数据类型
     aggregateFuncType: string; // 聚合函数类型
-    createTime?: Date; // 数据类型
+    createTime?: Date; // 创建时间
 }
 
 // 指标模型
-export interface Model extends Common {
+export interface Model {
     id: string; // id
     name: string; // 名称
     displayName: string; // 显示名称
-    createTime?: Date; // 数据类型
+    createTime?: Date; // 创建时间
 }
 
-// action click
-export interface ActionClick {
-    (id: string): void;
-}
-
-// action
-export interface Action {
-    id: string; // id
-    name: string; // 名称
-    icon?: string; // 图标
-    buttonType?: string; // 按钮样式
-    hideIcon?: boolean; // 图标隐藏
-    hideButton?: boolean; // 按钮隐藏
-    click?: ActionClick; // 点击事件
-}

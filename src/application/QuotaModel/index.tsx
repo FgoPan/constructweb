@@ -1,5 +1,4 @@
 import React, { memo, useState, useEffect } from 'react'
-import { Action } from '@/config/interfaces';
 import { modelColumns } from '@/config/tableColumns';
 import { Table } from '@/components/purecomponents';
 
@@ -30,7 +29,7 @@ const QuotaModel = () => {
         loading,
     }
 
-    const actionData: Action[] = [
+    const actionData = [
         {
             id: 'create',
             name: '创建指标模型',

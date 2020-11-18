@@ -10,7 +10,7 @@ const CreateQuotaSelectTypes = () => {
     console.log(quotaDataStore)
     const onChange = (e) => {
         setCreateType(e.target.value)
-        quotaDataStore.update({
+        quotaDataStore.saveCreateData({
             createType: e.target.value
         })
     }

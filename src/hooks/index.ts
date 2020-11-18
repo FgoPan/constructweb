@@ -16,16 +16,11 @@ export const useStore = (name?: string) => {
 export const useUserStore = () => useStore('userStore');
 export const useQuotaDataStore = () => useStore('quotaDataStore');
 
-export const useDicts = (name?: string|Array<string>, code?: undefined) => {
+export const useDicts = (name?: string|Array<string>) => {
     const dicts = useStore('dictsStore')
     if (name) {
         if (typeof name === 'string') {
-            const values = dicts.get(name) || []
-            if (code) {
-                const item =  _.find(values, value => value.code === code)
-                return _.get(item, 'name')
-            }
-            return values
+            return dicts.get(name) || []
         }
         if (Array.isArray(name)) {
             const r = {}
@@ -38,4 +33,13 @@ export const useDicts = (name?: string|Array<string>, code?: undefined) => {
         }
     }
     return dicts
+};
+
+export const useDictByKey = (name: string, code?: string) => {
+    const dicts = useDicts(name)
+    if (code) {
+        const item =  _.find(dicts, value => value.code === code)
+        return _.get(item, 'name')
+    }
+    return ''
 };
