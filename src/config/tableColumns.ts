@@ -99,7 +99,7 @@ export const quotaConfirmColumns: ITableColumnCommon[] = [
         title: '序号',
         dataIndex: '_index',
         align: 'center',
-        width: 100,
+        width: 60,
         render: (text, record, index) => {
             return index + 1
         }
@@ -108,7 +108,7 @@ export const quotaConfirmColumns: ITableColumnCommon[] = [
         title: '名称',
         dataIndex: 'name',
         align: 'center',
-        width: 160
+        width: 120
     }, {
         title: '显示名称',
         dataIndex: 'displayName',
@@ -117,17 +117,17 @@ export const quotaConfirmColumns: ITableColumnCommon[] = [
         title: '创建方式',
         dataIndex: 'createType',
         align: 'center',
-        width: 160
+        width: 130
     }, {
         title: '数据类型',
         dataIndex: 'dataType',
         align: 'center',
-        width: 150
+        width: 120
     }, {
         title: '聚合函数',
         dataIndex: 'aggregateFuncType',
         align: 'center',
         dictName: 'aggregateFuncTypes',
-        width: 150
+        width: 120
     }
 ];

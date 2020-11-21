@@ -39,8 +39,8 @@ const QuotaDataStore = types
                 })
             }
         },
-        updateCreateData(value, item) {
-            self.data.set(item.id, { ...item, [item.dataIndex]: value })
+        updateCreateData(value, item, record) {
+            self.data.set(record.id, { ...record, [item.dataIndex]: value })
         },
         create() {
             useRequest(QuotaApi.createQuota);

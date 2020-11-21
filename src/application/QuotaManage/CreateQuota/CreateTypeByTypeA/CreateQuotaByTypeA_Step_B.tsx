@@ -12,13 +12,13 @@ import { Table } from '@/components/purecomponents';
 const CreateQuotaByTypeA_Step_B = () => {
     const quotaDataStore = useQuotaDataStore()
 
-    const handleChange = (value, item) => {
-        quotaDataStore.updateCreateData(value, item)
+    const handleChange = (value, item, record) => {
+        quotaDataStore.updateCreateData(value, item, record)
     }
     const columns = quotaConfirmColumns.map(item => {
         if (item.dictName) {
             // eslint-disable-next-line react/display-name
-            item.render = (text) => <SelectDicts dictName={item.dictName} value={text} onChange={(value) => handleChange(value, item)}/>
+            item.render = (text, record) => <SelectDicts dictName={item.dictName} value={text} onChange={(value) => handleChange(value, item, record)}/>
         }
         if (item.dataIndex === 'createType') {
             item.render = (text) => useDictByKey('createTypes', text)
