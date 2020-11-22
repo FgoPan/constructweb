@@ -1,23 +1,33 @@
-import QuotaManage from '../application/QuotaManage'
-import QuotaModel from '../application/QuotaModel'
-import DataVisual from '../application/DataVisual'
+// import QuotaManage from '../application/QuotaManage'
+// import QuotaModel from '../application/QuotaModel'
+// import DataVisual from '../application/DataVisual'
+import QuotaAnalysis from '../application/QuotaAnalysis'
 
 const menuList = [
     {
         id: 'quota-manage',
         path: '/quota-manage',
         name: '指标管理',
-        component: QuotaManage,
+        component: null,
+        visible: false
     }, {
         id: 'quota-model',
         path: '/quota-model',
         name: '指标建模',
-        component: QuotaModel,
+        component: null,
+        visible: false
     }, {
         id: 'data-visual',
         path: '/data-visual',
         name: '数据可视化',
-        component: DataVisual,
+        component: null,
+        visible: false
+    }, {
+        id: 'data-visual',
+        path: '/data-analysis',
+        name: '数据可视化',
+        component: QuotaAnalysis,
+        visible: true
     }
 ]
 

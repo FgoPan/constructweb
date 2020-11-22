@@ -26,17 +26,16 @@ const MainLayout = () => {
                 <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
                     <MainRouter />
                 </Sider>
-                <Content style={{ margin: '0 16px' }}>
+                <Content style={{ margin: '16px 16px' }}>
                     <Breadcrumb style={{ padding: '16px', marginBottom: '16px', background: 'white' }}>
                         <Breadcrumb.Item>Root</Breadcrumb.Item>
                         <Breadcrumb.Item>{location.state && location.state.title}</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content style={{ padding: '0 16px', minHeight: 700, background: 'white' }}>
+                    <Content style={{ padding: '16px 16px', minHeight: 700, background: 'white' }}>
                         <MainContent />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>数据指标管理平台 ©2020 Created by 资产过亿打工人</Footer>
                 </Content>
-
             </Layout>
         </Layout>
     )

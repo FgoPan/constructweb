@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { types, Instance } from 'mobx-state-tree';
 import DictsStore from './DictsStore'
 import QuotaDataStore from './QuotaDataStoreA'
-import { createTypes, aggregateFuncTypes } from '@/config/dicts'
+import * as dicts from '@/config/dicts'
 
 const RootStore = types.model({
     dictsStore: DictsStore,
@@ -11,8 +11,7 @@ const RootStore = types.model({
 
 const initialState = RootStore.create({
     dictsStore: {
-        createTypes: createTypes,
-        aggregateFuncTypes: aggregateFuncTypes
+        ...dicts
     },
     quotaDataStore: {
         createType: '01',

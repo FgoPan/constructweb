@@ -131,3 +131,32 @@ export const quotaConfirmColumns: ITableColumnCommon[] = [
         width: 120
     }
 ];
+
+// 指标分析过滤
+export const quotaAnalysisColumns: ITableColumnCommon[] = [
+    {
+        title: '序号',
+        dataIndex: '_index',
+        align: 'center',
+        width: 60,
+        render: (text, record, index) => {
+            return index + 1
+        }
+    },
+    {
+        title: '指标',
+        dataIndex: 'name',
+        align: 'center',
+        width: 120
+    }, {
+        title: '条件',
+        dataIndex: 'operation',
+        align: 'center',
+        width: 120
+    }, {
+        title: '值',
+        dataIndex: 'value',
+        align: 'center',
+        width: 120
+    }
+];
