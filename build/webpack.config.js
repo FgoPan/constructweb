@@ -24,10 +24,7 @@ const publicConfig = {
   },
 
   plugins: [
-
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, '../')
-    })
+    new CleanWebpackPlugin()
   ]
 
 }
@@ -36,24 +33,14 @@ const publicConfig = {
 // 打包list
 let packageList = [
   {
-    name: 'sysmanager',
-    entry: `${SRC_PATH}/sysmanager.js`,
-    tpl: path.join(__dirname, '../src/sysmanager.html')
-  },
-  {
-    name: 'appDemo',
-    entry: `${SRC_PATH}/appDemo.js`,
-    tpl: path.join(__dirname, '../src/appDemo.html')
-  },
-  {
-    name: 'appConsoleDemo',
-    entry: `${SRC_PATH}/appConsoleDemo.js`,
-    tpl: path.join(__dirname, '../src/appConsoleDemo.html')
+    name: 'app',
+    entry: `${SRC_PATH}/index.tsx`,
+    tpl: path.join(__dirname, '../src/index.html')
   }
 ];
 
 
-Array.isArray(packageList) && packageList.forEach((item, index) => {
+Array.isArray(packageList) && packageList.forEach(item => {
   commonConfig.entry[item.name] = [item.entry];
   commonConfig.plugins.push(utils.packHtml(item));
 })

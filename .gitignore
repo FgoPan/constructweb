@@ -18,6 +18,6 @@ _site/
 consul_*.zip
 
 node_modules
-dist/*
+
 !dist/.keep
 package-lock.json
