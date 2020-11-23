@@ -6,7 +6,7 @@ const fullPath = utils.fullPath;
 // 项目源码路径
 const SRC_PATH = fullPath('../src');
 // 产出路径
-const DIST_PATH = fullPath('../dist');
+const DIST_PATH = fullPath('../docs');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin')

@@ -76,35 +76,6 @@ const dict_quotaOperations = [
 // 指标
 const dict_quotas = [
     {
-        code: 'node_count',
-        name: '节点数',
-        rank: 4
-    }, {
-        code: 'duration',
-        name: '在线时长',
-        rank: 5
-    }, {
-        code: 'count_crash',
-        name: '崩溃次数',
-        rank: 6
-    }, {
-        code: 'count_start',
-        name: '启动次数',
-        rank: 7
-    }, {
-        code: 'pv',
-        name: '访问量',
-        rank: 8
-    }, {
-        code: 'out',
-        name: '跳出次数',
-        rank: 8
-    }
-]
-
-// 指标大项
-const dict_quotasBig = [
-    {
         code: 'device',
         name: '活跃设备数',
         rank: 1
@@ -116,6 +87,94 @@ const dict_quotasBig = [
         code: 'gid',
         name: '活跃用户数',
         rank: 3
+    }, {
+        code: 'pdate',
+        name: '日期分区',
+        rank: 1
+    }, {
+        code: 'pid',
+        name: '产品号',
+        rank: 2
+    }, {
+        code: 'spid',
+        name: '小产品号',
+        rank: 3
+    }, {
+        code: 'fnname',
+        name: '功能名称',
+        rank: 4
+    }, {
+        code: 'fncode',
+        name: '功能编码',
+        rank: 5
+    }, {
+        code: 'country',
+        name: '国家',
+        rank: 6
+    }, {
+        code: 'province',
+        name: '城市',
+        rank: 7
+    }, {
+        code: 'city',
+        name: '省份',
+        rank: 8
+    }, {
+        code: 'customer_type',
+        name: '客户类型',
+        rank: 9
+    }, {
+        code: 'is_install',
+        name: '是否装机',
+        rank: 10
+    }, {
+        code: 'is_active',
+        name: '是否激活',
+        rank: 11
+    }, {
+        code: 'is_condition',
+        name: '是否达标',
+        rank: 12
+    }, {
+        code: 'lock_type',
+        name: '锁类型',
+        rank: 13
+    }, {
+        code: 'os_version',
+        name: '系统版本',
+        rank: 14
+    }, {
+        code: 'user_identify',
+        name: '用户身份',
+        rank: 15
+    }, {
+        code: 'level',
+        name: '用户等级',
+        rank: 16
+    }, {
+        code: 'node_count',
+        name: '节点数',
+        rank: 17
+    }, {
+        code: 'duration',
+        name: '在线时长',
+        rank: 18
+    }, {
+        code: 'count_crash',
+        name: '崩溃次数',
+        rank: 19
+    }, {
+        code: 'count_start',
+        name: '启动次数',
+        rank: 20
+    }, {
+        code: 'pv',
+        name: '访问量',
+        rank: 21
+    }, {
+        code: 'out',
+        name: '跳出次数',
+        rank: 22
     }
 ]
 
@@ -185,6 +244,71 @@ const dict_quotasGroup = [
         code: 'level',
         name: '用户等级',
         rank: 16
+    }, {
+        code: 'node_count',
+        name: '节点数',
+        rank: 17
+    }, {
+        code: 'duration',
+        name: '在线时长',
+        rank: 18
+    }, {
+        code: 'count_crash',
+        name: '崩溃次数',
+        rank: 19
+    }, {
+        code: 'count_start',
+        name: '启动次数',
+        rank: 20
+    }, {
+        code: 'pv',
+        name: '访问量',
+        rank: 21
+    }, {
+        code: 'out',
+        name: '跳出次数',
+        rank: 22
+    }
+]
+
+// 指标字段
+const dict_quotasSingle = [
+    {
+        code: 'device',
+        name: '活跃设备数',
+        rank: 1
+    }, {
+        code: 'lock',
+        name: '活跃锁数',
+        rank: 2
+    }, {
+        code: 'gid',
+        name: '活跃用户数',
+        rank: 3
+    }, {
+        code: 'node_count',
+        name: '节点数',
+        rank: 17
+    }, {
+        code: 'duration',
+        name: '在线时长',
+        rank: 18
+    }, {
+        code: 'count_crash',
+        name: '崩溃次数',
+        rank: 19
+    }, {
+        code: 'count_start',
+        name: '启动次数',
+        rank: 20
+    }, {
+        code: 'pv',
+        name: '访问量',
+        rank: 21
+    }, {
+        code: 'out',
+        name: '跳出次数',
+        rank: 22
     }
 ]
 
@@ -226,13 +350,39 @@ const dict_quotasGroupUnit = [
     }
 ]
 
+// 指标分析类型
+const dict_analysisTypes = [
+    {
+        code: 'sum',
+        name: '求和',
+        rank: 1
+    }, {
+        code: 'count',
+        name: '总数',
+        rank: 2
+    }, {
+        code: 'max',
+        name: '最大值',
+        rank: 3
+    }, {
+        code: 'min',
+        name: '最小值',
+        rank: 4
+    }, {
+        code: 'average',
+        name: '平均值',
+        rank: 5
+    }
+]
+
 export {
     createTypes,
     aggregateFuncTypes,
     dict_quotaOperations,
     dict_quotas,
-    dict_quotasBig,
     dict_quotasGroup,
+    dict_quotasSingle,
     dict_quotasGroupBase,
-    dict_quotasGroupUnit
+    dict_quotasGroupUnit,
+    dict_analysisTypes
 }

@@ -1,9 +1,8 @@
 import React, { memo, useState } from 'react'
-import { Layout, Radio, Input, Button, Divider } from 'antd'
-import { ClearOutlined } from '@ant-design/icons'
+import { Layout, Input, Button, Divider } from 'antd'
+import { ClearOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { Table, Icon } from '@/components/purecomponents';
 import { SelectDicts } from '@/components/bizcomponents';
-import { useDicts } from '@/hooks';
 
 const { Sider, Content } = Layout;
 const placeholderMap = {
@@ -13,17 +12,21 @@ const placeholderMap = {
 
 const QuotaAnalysis = () => {
     const [data, setData] = useState<any>([{
-        name: undefined,
-        operation: undefined,
+        name: '',
+        operation: '',
         value: ''
     }])
     const [dataG, setDataG] = useState<any>([{
-        name: undefined,
-        operation_a: undefined,
-        operation_b: undefined,
+        name: '',
+        operation_a: '',
+        operation_b: '',
         value: ''
     }])
-    const dict_quotasBig = useDicts('dict_quotasBig')
+    const [dataS, setDataS] = useState<any>([{
+        name: '',
+        operation: '',
+        value: ''
+    }])
     const iconStyle = {
         fontSize: '16px'
     }
@@ -33,6 +36,21 @@ const QuotaAnalysis = () => {
             operation: undefined,
             value: ''
         }])
+        setDataG([{
+            name: undefined,
+            operation_a: undefined,
+            operation_b: undefined,
+            value: ''
+        }])
+        setDataS([{
+            name: undefined,
+            operation: undefined,
+            value: ''
+        }])
+    }
+
+    const handleSubmit = () => {
+        console.log('build parameter...')
     }
 
     const handleDelete = (index: number, type) => {
@@ -62,6 +80,19 @@ const QuotaAnalysis = () => {
             _data.splice(index, 1)
             setDataG(_data)
         }
+        if (type === 'S') {
+            if (index === 0 && dataS.length === 1) {
+                setDataS([{
+                    name: undefined,
+                    operation: undefined,
+                    value: ''
+                }])
+                return
+            }
+            const _data = [...dataS]
+            _data.splice(index, 1)
+            setDataS(_data)
+        }
     }
 
     const handleAdd = (type): void => {
@@ -84,6 +115,16 @@ const QuotaAnalysis = () => {
             })
             setDataG(_data)
         }
+        if (type === 'S') {
+            const _data = [...dataS]
+            _data.push({
+                name: undefined,
+                operation_a: undefined,
+                operation_b: undefined,
+                value: ''
+            })
+            setDataS(_data)
+        }
     }
 
     const handleChange = (value, dataIndex, index, type): void => {
@@ -96,6 +137,11 @@ const QuotaAnalysis = () => {
             const _data = [...dataG]
             _data[index][dataIndex] = value
             setDataG(_data)
+        }
+        if (type === 'S') {
+            const _data = [...dataS]
+            _data[index][dataIndex] = value
+            setDataS(_data)
         }
     }
 
@@ -175,13 +221,27 @@ const QuotaAnalysis = () => {
             }
         }, {
             title: '条件1',
+            dataIndex: 'operation_aa',
+            align: 'center',
+            width: 50,
+            // eslint-disable-next-line react/display-name
+            render: () => '基于'
+        }, {
+            title: '条件1',
             dataIndex: 'operation_a',
             align: 'center',
             width: 140,
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
-                return <span>基于<SelectDicts value={text} dictName="dict_quotasGroupBase" onChange={(value) => handleChange(value, 'operation_a', index, 'G')} /></span>
+                return <SelectDicts value={text} dictName="dict_quotasGroupBase" onChange={(value) => handleChange(value, 'operation_a', index, 'G')} />
             }
+        }, {
+            title: '条件2',
+            dataIndex: 'operation_bb',
+            align: 'center',
+            width: 40,
+            // eslint-disable-next-line react/display-name
+            render: () => '按'
         }, {
             title: '条件2',
             dataIndex: 'operation_b',
@@ -189,7 +249,7 @@ const QuotaAnalysis = () => {
             width: 140,
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
-                return <span>按<SelectDicts value={text} dictName="dict_quotasGroupUnit" onChange={(value) => handleChange(value, 'operation_b', index, 'G')} /></span>
+                return <SelectDicts value={text} dictName="dict_quotasGroupUnit" onChange={(value) => handleChange(value, 'operation_b', index, 'G')} />
             }
         }, {
             title: '操作',
@@ -200,9 +260,53 @@ const QuotaAnalysis = () => {
             render: (text, record, index) => {
                 return <span style={{ display: 'flex', justifyContent: 'space-between' }}>
                     {
-                        index === data.length - 1 ? <Icon type="PlusCircleTwoTone" style={iconStyle} title="增加" onClick={() => handleAdd('G')} /> : null
+                        index === dataG.length - 1 ? <Icon type="PlusCircleTwoTone" style={iconStyle} title="增加" onClick={() => handleAdd('G')} /> : null
                     }
                     <Icon type="MinusCircleTwoTone" style={iconStyle} title="删除" onClick={() => handleDelete(index, 'G')}/>
+                </span>
+            }
+        }
+    ];
+    // 指标分析字段
+    const quotaAnalysisColumns_single = [
+        {
+            title: '序号',
+            dataIndex: '_index',
+            align: 'center',
+            width: 60,
+            render: (text, record, index) => {
+                return index + 1
+            }
+        },
+        {
+            title: '指标',
+            dataIndex: 'name',
+            align: 'center',
+            // eslint-disable-next-line react/display-name
+            render: (text, record, index) => {
+                return <SelectDicts value={text} dictName="dict_quotasSingle" onChange={(value) => handleChange(value, 'name', index, 'S')} />
+            }
+        }, {
+            title: '条件',
+            dataIndex: 'operation',
+            align: 'center',
+            width: 140,
+            // eslint-disable-next-line react/display-name
+            render: (text, record, index) => {
+                return <SelectDicts value={text} dictName="dict_analysisTypes" onChange={(value) => handleChange(value, 'operation', index, 'S')} />
+            }
+        }, {
+            title: '操作',
+            dataIndex: 'value',
+            align: 'center',
+            width: 60,
+            // eslint-disable-next-line react/display-name
+            render: (text, record, index) => {
+                return <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    {
+                        index === dataS.length - 1 ? <Icon type="PlusCircleTwoTone" style={iconStyle} title="增加" onClick={() => handleAdd('S')} /> : null
+                    }
+                    <Icon type="MinusCircleTwoTone" style={iconStyle} title="删除" onClick={() => handleDelete(index, 'S')}/>
                 </span>
             }
         }
@@ -211,7 +315,7 @@ const QuotaAnalysis = () => {
     const tableProps: any = {
         columns: quotaAnalysisColumns,
         dataSource: data,
-        bordered: true,
+        bordered: false,
         size: 'small',
         rowKey: 'name',
         pagination: false,
@@ -220,7 +324,16 @@ const QuotaAnalysis = () => {
     const tableProps_group: any = {
         columns: quotaAnalysisColumns_group,
         dataSource: dataG,
-        bordered: true,
+        bordered: false,
+        size: 'small',
+        rowKey: 'name',
+        pagination: false,
+        showHeader: false
+    }
+    const tableProps_single: any = {
+        columns: quotaAnalysisColumns_single,
+        dataSource: dataS,
+        bordered: false,
         size: 'small',
         rowKey: 'name',
         pagination: false,
@@ -229,14 +342,10 @@ const QuotaAnalysis = () => {
 
     return <Layout className="analysis-container">
         <Sider width="35%" className="analysis-sider">
+            <Button type="primary" icon={<ClearOutlined />} onClick={() => handleClear()}>重置</Button>
+            <Button type="primary" icon={<PlayCircleOutlined />} onClick={() => handleSubmit()}>执行</Button>
             <Divider orientation="left">过滤条件</Divider>
             <div className="part_1">
-                <Radio.Group defaultValue="device" buttonStyle="solid">
-                    {
-                        dict_quotasBig.map(item => <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>)
-                    }
-                </Radio.Group>
-                <Button type="primary" icon={<ClearOutlined />} onClick={() => handleClear()}>重置</Button>
             </div>
             <div className="part_2">
                 <Table tableProps={tableProps}/>
@@ -247,7 +356,7 @@ const QuotaAnalysis = () => {
             </div>
             <Divider orientation="left">指标字段</Divider>
             <div>
-                指标字段
+                <Table tableProps={tableProps_single}/>
             </div>
         </Sider>
         <Content>

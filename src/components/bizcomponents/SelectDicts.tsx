@@ -7,7 +7,7 @@ const { Option } = Select;
 const SelectDicts = (props) => {
     const { dictName, value: _value, onChange, defaultValue, children } = props
 
-    const [value, setValue] = useState('undefined')
+    const [value, setValue] = useState('')
 
     useEffect(() => {
         setValue(_value)

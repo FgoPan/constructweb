@@ -13,7 +13,7 @@ const MainLayout = () => {
         setCollapsed(collapsed)
     }
     return (
-        <Layout>
+        <Layout style={{ height: '100%' }}>
             <Header className="header">
                 <div className="app-content">
                     <div className="app-title">数据指标管理平台</div>
@@ -31,7 +31,7 @@ const MainLayout = () => {
                         <Breadcrumb.Item>Root</Breadcrumb.Item>
                         <Breadcrumb.Item>{location.state && location.state.title}</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content style={{ padding: '16px 16px', minHeight: 700, background: 'white' }}>
+                    <Content style={{ padding: '16px 16px', height: 'calc(100% - 140px)', background: 'white' }}>
                         <MainContent />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>数据指标管理平台 ©2020 Created by 资产过亿打工人</Footer>

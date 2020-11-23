@@ -5,7 +5,7 @@ import { menuList } from '../config/';
 import { PieChartOutlined } from '@ant-design/icons';
 
 const MainRouter = () => {
-    return <Menu mode="inline" theme="dark" style={{ height: '100%' }} >
+    return <Menu mode="inline" theme="dark" style={{ height: '100%' }} defaultSelectedKeys={[menuList[0].id]}>
         {
             menuList.map(item => {
                 if (item.visible) {

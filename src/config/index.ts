@@ -25,7 +25,7 @@ const menuList = [
     }, {
         id: 'data-visual',
         path: '/data-analysis',
-        name: '数据可视化',
+        name: '数据分析',
         component: QuotaAnalysis,
         visible: true
     }
