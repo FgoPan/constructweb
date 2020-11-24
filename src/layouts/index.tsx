@@ -29,7 +29,7 @@ const MainLayout = () => {
                 <Content style={{ margin: '16px 16px' }}>
                     <Breadcrumb style={{ padding: '16px', marginBottom: '16px', background: 'white' }}>
                         <Breadcrumb.Item>Root</Breadcrumb.Item>
-                        <Breadcrumb.Item>{location.state && location.state.title}</Breadcrumb.Item>
+                        <Breadcrumb.Item>{location?.state?.title || '数据分析'}</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content style={{ padding: '16px 16px', height: 'calc(100% - 140px)', background: 'white' }}>
                         <MainContent />

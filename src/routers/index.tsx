@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link, Switch, Route } from 'react-router-dom'
+import { Link, Switch, Route, Redirect } from 'react-router-dom'
 import { Menu } from 'antd';
 import { menuList } from '../config/';
 import { PieChartOutlined } from '@ant-design/icons';
 
 const MainRouter = () => {
-    return <Menu mode="inline" theme="dark" style={{ height: '100%' }} defaultSelectedKeys={[menuList[0].id]}>
+    return <Menu mode="inline" theme="dark" style={{ height: '100%' }} defaultSelectedKeys={['data-visual']}>
         {
             menuList.map(item => {
                 if (item.visible) {
@@ -19,10 +19,13 @@ const MainRouter = () => {
 
 const MainContent = () => {
     return <Switch>
+        <Route path="/" exact >
+            <Redirect to="/data-analysis" />
+        </Route>
         {
             menuList.map(item => {
                 const Comp = item.component
-                return Comp ? <Route key={item.id} path={item.path}><Comp /></Route> : null
+                return Comp ? <Route key={item.id} path={item.path} exact ><Comp /></Route> : null
             })
         }
     </Switch>

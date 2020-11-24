@@ -4,14 +4,28 @@
         background: white;
         height: 100%;
         padding-right: 16px;
-        .part_1 {
+        .part_btns {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 16px;
         }
-        .part_2 {
-            max-height: 300px;
+        .part_opt {
+            height: calc(100% - 0px);
             overflow: auto;
+            .part_1 {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 16px;
+            }
+            .part_2 {
+                max-height: 25%;
+                overflow: auto;
+            }
+        }
+    }
+    .ant-spin-nested-loading {
+        height: calc(100% - 22px);
+        .ant-spin-container {
+            height: 100%;
         }
     }
 }

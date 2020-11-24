@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react'
-import { Layout, Input, Button, Divider } from 'antd'
+import React, { memo, useState, useRef } from 'react'
+import { Layout, Input, Button, Divider, Spin } from 'antd'
+import moment from 'moment'
 import { ClearOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { Table, Icon } from '@/components/purecomponents';
 import { SelectDicts } from '@/components/bizcomponents';
@@ -9,6 +10,7 @@ const placeholderMap = {
     7: '使用,分割填入两个值',
     8: '使用,分割填入多个值'
 }
+const interval = 20 // ms
 
 const QuotaAnalysis = () => {
     const [data, setData] = useState<any>([{
@@ -27,6 +29,8 @@ const QuotaAnalysis = () => {
         operation: '',
         value: ''
     }])
+    const [loading, setLoading] = useState<boolean>(false)
+    const timeRef = useRef<HTMLElement>(null)
     const iconStyle = {
         fontSize: '16px'
     }
@@ -50,6 +54,27 @@ const QuotaAnalysis = () => {
     }
 
     const handleSubmit = () => {
+        setLoading(true)
+        let _t = 0
+        const etimer = setInterval(() => {
+            if (timeRef.current) {
+                _t += interval
+                timeRef.current.innerText = (_t).toString()
+                console.log(_t)
+            }
+        }, interval)
+        const sTime = moment().valueOf()
+        const dtimer = setTimeout(() => {
+            const eTime = moment().valueOf()
+            if (timeRef.current) {
+                const diffTime = eTime - sTime
+                timeRef.current.innerText = (diffTime).toString()
+                console.log(diffTime)
+            }
+            setLoading(false)
+            clearTimeout(dtimer)
+            clearInterval(etimer)
+        }, 3154)
         console.log('build parameter...')
     }
 
@@ -148,15 +173,6 @@ const QuotaAnalysis = () => {
     // 指标分析过滤
     const quotaAnalysisColumns = [
         {
-            title: '序号',
-            dataIndex: '_index',
-            align: 'center',
-            width: 60,
-            render: (text, record, index) => {
-                return index + 1
-            }
-        },
-        {
             title: '指标',
             dataIndex: 'name',
             align: 'center',
@@ -203,18 +219,10 @@ const QuotaAnalysis = () => {
     // 指标分析分组
     const quotaAnalysisColumns_group = [
         {
-            title: '序号',
-            dataIndex: '_index',
-            align: 'center',
-            width: 60,
-            render: (text, record, index) => {
-                return index + 1
-            }
-        },
-        {
             title: '指标',
             dataIndex: 'name',
             align: 'center',
+            width: 140,
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
                 return <SelectDicts value={text} dictName="dict_quotasGroup" onChange={(value) => handleChange(value, 'name', index, 'G')} />
@@ -270,18 +278,10 @@ const QuotaAnalysis = () => {
     // 指标分析字段
     const quotaAnalysisColumns_single = [
         {
-            title: '序号',
-            dataIndex: '_index',
-            align: 'center',
-            width: 60,
-            render: (text, record, index) => {
-                return index + 1
-            }
-        },
-        {
             title: '指标',
             dataIndex: 'name',
             align: 'center',
+            width: '50%',
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
                 return <SelectDicts value={text} dictName="dict_quotasSingle" onChange={(value) => handleChange(value, 'name', index, 'S')} />
@@ -290,7 +290,6 @@ const QuotaAnalysis = () => {
             title: '条件',
             dataIndex: 'operation',
             align: 'center',
-            width: 140,
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
                 return <SelectDicts value={text} dictName="dict_analysisTypes" onChange={(value) => handleChange(value, 'operation', index, 'S')} />
@@ -342,25 +341,32 @@ const QuotaAnalysis = () => {
 
     return <Layout className="analysis-container">
         <Sider width="35%" className="analysis-sider">
-            <Button type="primary" icon={<ClearOutlined />} onClick={() => handleClear()}>重置</Button>
-            <Button type="primary" icon={<PlayCircleOutlined />} onClick={() => handleSubmit()}>执行</Button>
-            <Divider orientation="left">过滤条件</Divider>
-            <div className="part_1">
+            <div className="part_btns">
+                <Button type="primary" icon={<ClearOutlined />} onClick={() => handleClear()}>重置</Button>
+                <Button type="primary" icon={<PlayCircleOutlined />} disabled={loading} onClick={() => handleSubmit()}>执行</Button>
             </div>
-            <div className="part_2">
-                <Table tableProps={tableProps}/>
-            </div>
-            <Divider orientation="left">分组字段</Divider>
-            <div className="part_2">
-                <Table tableProps={tableProps_group}/>
-            </div>
-            <Divider orientation="left">指标字段</Divider>
-            <div>
-                <Table tableProps={tableProps_single}/>
+            <div className="part_opt">
+                <Divider orientation="left">过滤条件</Divider>
+                <div className="part_2">
+                    <Table tableProps={tableProps}/>
+                </div>
+                <Divider orientation="left">分组字段</Divider>
+                <div className="part_2">
+                    <Table tableProps={tableProps_group}/>
+                </div>
+                <Divider orientation="left">指标字段</Divider>
+                <div className="part_2">
+                    <Table tableProps={tableProps_single}/>
+                </div>
             </div>
         </Sider>
         <Content>
-            图表结果
+            <div>本次执行耗时：<span ref={timeRef}>0.00</span> ms</div>
+            <Spin tip="疯狂计算中..." size="large" spinning={loading}>
+                <div style={{ height: '100%' }}>
+                    结果显示
+                </div>
+            </Spin>
         </Content>
     </Layout>
 }

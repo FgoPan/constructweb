@@ -30908,14 +30908,28 @@ div.ant-typography-edit-content.ant-typography-rtl {
   height: 100%;
   padding-right: 16px;
 }
-.analysis-container .analysis-sider .part_1 {
+.analysis-container .analysis-sider .part_btns {
+  display: flex;
+  justify-content: space-between;
+}
+.analysis-container .analysis-sider .part_opt {
+  height: calc(100% - 0px);
+  overflow: auto;
+}
+.analysis-container .analysis-sider .part_opt .part_1 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.analysis-container .analysis-sider .part_2 {
-  max-height: 300px;
+.analysis-container .analysis-sider .part_opt .part_2 {
+  max-height: 25%;
   overflow: auto;
+}
+.analysis-container .ant-spin-nested-loading {
+  height: calc(100% - 22px);
+}
+.analysis-container .ant-spin-nested-loading .ant-spin-container {
+  height: 100%;
 }
 .create-quota-modal {
   height: 500px;
