@@ -4,6 +4,7 @@ import moment from 'moment'
 import { ClearOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { Table, Icon } from '@/components/purecomponents';
 import { SelectDicts } from '@/components/bizcomponents';
+import { jsonToQueryUrl } from '@/utils/util';
 
 const { Sider, Content } = Layout;
 const placeholderMap = {
@@ -64,7 +65,33 @@ const QuotaAnalysis = () => {
             }
         }, interval)
         const sTime = moment().valueOf()
-        const dtimer = setTimeout(() => {
+        const params = {
+            'value_type': 'device',
+            'pdate':
+            {
+                'operator': 3,
+                'value': 20201119
+            },
+            'is_active':
+            {
+                'operator': 1,
+                'value': 0
+            },
+            'province':
+            {
+                'operator': 7,
+                'value': [1, 2, 3, 4]
+            },
+            'count_start':
+            {
+                'operator': 8,
+                'value1': 10,
+                'value2': 300
+            }
+        }
+        const q = jsonToQueryUrl(params)
+        fetch(`/api?${q}`).then(res => {
+            console.log(res)
             const eTime = moment().valueOf()
             if (timeRef.current) {
                 const diffTime = eTime - sTime
@@ -72,9 +99,8 @@ const QuotaAnalysis = () => {
                 console.log(diffTime)
             }
             setLoading(false)
-            clearTimeout(dtimer)
             clearInterval(etimer)
-        }, 3154)
+        })
         console.log('build parameter...')
     }
 

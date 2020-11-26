@@ -15,10 +15,11 @@ const devConfig = {
     contentBase: path.join(__dirname, '../dist'),
     compress: true,
     port: 3798,
-    // proxy: [{
-    //     context: ['/WEB-CONFIG', '/pcop_framework'],
-    //     target: 'http://localhost:3090'
-    // }]
+    proxy: [{
+        context: ['/api'],
+        target: 'http://10.2.37.17:12306/rest/test',
+        pathRewrite: { '^/api': '' }
+    }]
   }
 }
 

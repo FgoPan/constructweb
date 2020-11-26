@@ -75,11 +75,13 @@
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "@types/react-router-dom": "^5.1.6",
+    "@types/webpack-env": "^1.16.0",
     "ahooks": "^2.9.1",
     "animejs": "^3.1.0",
     "antd": "^4.7.0",
     "chokidar": "^3.4.2",
     "classnames": "^2.2.6",
+    "hard-source-webpack-plugin": "^0.13.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.15",
     "mobx": "5.15.7",
@@ -92,8 +94,5 @@
     "react-router-dom": "^5.0.0",
     "react-use": "^13.10.0",
     "webpack-bundle-analyzer": "^3.3.2"
-  },
-  "pre-commit": [
-    "lint"
-  ]
+  }
 }
