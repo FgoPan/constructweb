@@ -5,7 +5,7 @@ import { useDicts } from '@/hooks';
 const { Option } = Select;
 
 const SelectDicts = (props) => {
-    const { dictName, value: _value, onChange, defaultValue, children } = props
+    const { dictName, value: _value, onChange, defaultValue, children, ..._props } = props
 
     const [value, setValue] = useState('')
 
@@ -20,7 +20,7 @@ const SelectDicts = (props) => {
     if (dictName) {
         const dicts = useDicts(dictName)
 
-        return <Select style={{ width: '100%' }} value={value} defaultValue={defaultValue} onChange={(value) => handleChange(value)}>
+        return <Select style={{ width: '100%' }} value={value} defaultValue={defaultValue} onChange={(value) => handleChange(value)} {..._props}>
             {children}
             {
                 dicts.map(item => {
