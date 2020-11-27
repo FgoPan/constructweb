@@ -48,6 +48,64 @@ const QuotaAnalysis = () => {
         }])
     }
 
+    const buildParams = () => {
+        // const params = {
+        //     'value_type': 'device',
+        //     'pdate':
+        //     {
+        //         'operator': 3,
+        //         'value': 20201119
+        //     },
+        //     'is_active':
+        //     {
+        //         'operator': 1,
+        //         'value': 0
+        //     },
+        //     'province':
+        //     {
+        //         'operator': 7,
+        //         'value': [1, 2, 3, 4]
+        //     },
+        //     'count_start':
+        //     {
+        //         'operator': 8,
+        //         'value1': 10,
+        //         'value2': 300
+        //     }
+        // }
+        const getConditions = () => {
+            const r = {}
+            data.forEach(item => {
+                let _value = {
+                    value: item.value
+                }
+                if (item.operation === 7) {
+                    _value = {
+                        value: [item.value]
+                    }
+                }
+                if (item.operation === 8) {
+                    _value = {
+                        value1: item.value.split(',')[0],
+                        value2: item.value.split(',')[1]
+                    }
+                }
+                r.push({
+                    [item.name]: {
+                        operator: item.operation,
+                        value: { ..._value }
+                    }
+                })
+            })
+        }
+        const params = {
+            res: dataS.map(item => item.name),
+            group: dataG,
+            conditions: getConditions()
+        }
+        return params
+    }
+
     const handleSubmit = () => {
         setLoading(true)
         const rh = [moment().format('YYYY/MM/DD HH:mm:ss')]
@@ -60,31 +118,9 @@ const QuotaAnalysis = () => {
         //     }
         // }, interval)
         // const sTime = moment().valueOf()
-        const params = {
-            'value_type': 'device',
-            'pdate':
-            {
-                'operator': 3,
-                'value': 20201119
-            },
-            'is_active':
-            {
-                'operator': 1,
-                'value': 0
-            },
-            'province':
-            {
-                'operator': 7,
-                'value': [1, 2, 3, 4]
-            },
-            'count_start':
-            {
-                'operator': 8,
-                'value1': 10,
-                'value2': 300
-            }
-        }
-        const q = JSON.stringify(params)
+        const params = buildParams()
+
+        const q = encodeURIComponent(JSON.stringify(params))
         fetch(`/api/${q}`).then(res => {
             console.log(res)
             // const eTime = moment().valueOf()
@@ -101,7 +137,6 @@ const QuotaAnalysis = () => {
             setRH(_rh)
             // clearInterval(etimer)
         })
-        console.log('build parameter...')
     }
 
     const handleDelete = (index: number, type) => {

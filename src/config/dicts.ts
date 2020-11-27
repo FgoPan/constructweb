@@ -70,24 +70,12 @@ const dict_quotaOperations = [
         code: '8',
         name: '介于之间',
         rank: 8
-    },
+    }
 ]
 
 // 指标
 const dict_quotas = [
     {
-        code: 'device',
-        name: '活跃设备数',
-        rank: 1
-    }, {
-        code: 'lock',
-        name: '活跃锁数',
-        rank: 2
-    }, {
-        code: 'gid',
-        name: '活跃用户数',
-        rank: 3
-    }, {
         code: 'pdate',
         name: '日期分区',
         rank: 1
