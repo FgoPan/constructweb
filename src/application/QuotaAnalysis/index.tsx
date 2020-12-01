@@ -5,9 +5,8 @@ import { ClearOutlined, PlayCircleOutlined, ProfileFilled } from '@ant-design/ic
 import { Table, Icon } from '@/components/purecomponents';
 import { SelectDicts } from '@/components/bizcomponents';
 import AnalysisResult from './AnalysisResult';
-// import { jsonToQueryUrl } from '@/utils/util';
-
-const { Sider, Content } = Layout;
+// import { tempData } from '@/config/'
+const { Content, Sider } = Layout;
 const placeholderMap = {
     7: '使用,分割填入两个值',
     8: '使用,分割填入多个值'
@@ -49,54 +48,31 @@ const QuotaAnalysis = () => {
     }
 
     const buildParams = () => {
-        // const params = {
-        //     'value_type': 'device',
-        //     'pdate':
-        //     {
-        //         'operator': 3,
-        //         'value': 20201119
-        //     },
-        //     'is_active':
-        //     {
-        //         'operator': 1,
-        //         'value': 0
-        //     },
-        //     'province':
-        //     {
-        //         'operator': 7,
-        //         'value': [1, 2, 3, 4]
-        //     },
-        //     'count_start':
-        //     {
-        //         'operator': 8,
-        //         'value1': 10,
-        //         'value2': 300
-        //     }
-        // }
         const getConditions = () => {
             const r = {}
             data.forEach(item => {
-                let _value = {
-                    value: item.value
+                let _value: any = {
+                    value: item.type === 'number' ? Number(item.value) : item.value
                 }
-                if (item.operation === 7) {
+                if (item.operation === '7') {
                     _value = {
-                        value: [item.value]
+                        value: item.value.split(',').map(v => {
+                            return item.type === 'number' ? Number(v) : v
+                        })
                     }
                 }
-                if (item.operation === 8) {
+                if (item.operation === '8') {
                     _value = {
-                        value1: item.value.split(',')[0],
-                        value2: item.value.split(',')[1]
+                        value1: item.type === 'number' ? Number(item.value.split(',')[0]) : item.value.split(',')[0],
+                        value2: item.type === 'number' ? Number(item.value.split(',')[1]) : item.value.split(',')[1]
                     }
                 }
-                r.push({
-                    [item.name]: {
-                        operator: item.operation,
-                        value: { ..._value }
-                    }
-                })
+                r[item.name] = {
+                    operator: item.operation,
+                    ..._value
+                }
             })
+            return r
         }
         const params = {
             res: dataS.map(item => item.name),
@@ -109,7 +85,6 @@ const QuotaAnalysis = () => {
     const handleSubmit = () => {
         setLoading(true)
         const rh = [moment().format('YYYY/MM/DD HH:mm:ss')]
-        // let _t = 0
         // const etimer = setInterval(() => {
         //     if (timeRef.current) {
         //         _t += interval
@@ -117,25 +92,20 @@ const QuotaAnalysis = () => {
         //         console.log(_t)
         //     }
         // }, interval)
-        // const sTime = moment().valueOf()
+        const sTime = moment().valueOf()
         const params = buildParams()
-
+        console.log(params)
         const q = encodeURIComponent(JSON.stringify(params))
-        fetch(`/api/${q}`).then(res => {
-            console.log(res)
-            // const eTime = moment().valueOf()
-            // if (timeRef.current) {
-            //     const diffTime = eTime - sTime
-            //     timeRef.current.innerText = (diffTime).toString()
-            //     console.log(diffTime)
-            // }
+        fetch(`/api/${q}`).then(response => response.json()).then(data => {
+            console.log(data)
+            const eTime = moment().valueOf()
+            const diffTime = eTime - sTime
             setLoading(false)
-            setResult([])
-            rh.push('执行耗时: 2231ms')
+            setResult(data)
+            rh.push(`执行耗时: ${diffTime} ms`)
             const _rh = [...resultHistory]
             _rh.push(rh)
             setRH(_rh)
-            // clearInterval(etimer)
         })
     }
 
@@ -144,6 +114,7 @@ const QuotaAnalysis = () => {
             if (index === 0 && data.length === 1) {
                 setData([{
                     name: undefined,
+                    type: undefined,
                     operation: undefined,
                     value: ''
                 }])
@@ -173,6 +144,7 @@ const QuotaAnalysis = () => {
             const _data = [...data]
             _data.push({
                 name: undefined,
+                type: undefined,
                 operation: undefined,
                 value: ''
             })
@@ -182,18 +154,20 @@ const QuotaAnalysis = () => {
             const _data = [...dataS]
             _data.push({
                 name: undefined,
-                operation_a: undefined,
-                operation_b: undefined,
+                operation: undefined,
                 value: ''
             })
             setDataS(_data)
         }
     }
 
-    const handleChange = (value, dataIndex, index, type): void => {
+    const handleChange = (value, dataIndex, index, type, option): void => {
         if (type === 'O') {
             const _data = [...data]
             _data[index][dataIndex] = value
+            if (dataIndex === 'name') {
+                _data[index]['type'] = option._props.type
+            }
             setData(_data)
         }
         if (type === 'S') {
@@ -223,7 +197,7 @@ const QuotaAnalysis = () => {
             width: '30%',
             // eslint-disable-next-line react/display-name
             render: (text, record, index) => {
-                return <SelectDicts value={text} dictName="dict_quotas" onChange={(value) => handleChange(value, 'name', index, 'O')} />
+                return <SelectDicts value={text} dictName="dict_quotas" onChange={(value, option) => handleChange(value, 'name', index, 'O', option)} />
             }
         }, {
             title: '条件',
@@ -315,6 +289,7 @@ const QuotaAnalysis = () => {
         showHeader: false
     }
 
+    const quota = dataS.map(item => item.name)
     return <Layout className="analysis-container">
         <Sider width="35%" className="analysis-sider">
             <div className="part_btns">
@@ -340,7 +315,7 @@ const QuotaAnalysis = () => {
             <Spin tip="疯狂计算中..." size="large" spinning={loading}>
                 <div style={{ height: '100%' }}>
                     {
-                        result !== null ? <AnalysisResult /> : <Result title="暂无结果" status="500"/>
+                        result !== null ? <AnalysisResult data={result} group={dataG} quota={quota} /> : <Result title="暂无结果" status="500"/>
                     }
                 </div>
             </Spin>

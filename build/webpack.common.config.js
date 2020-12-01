@@ -9,7 +9,7 @@ const SRC_PATH = fullPath('../src');
 const DIST_PATH = fullPath('../docs');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');;
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

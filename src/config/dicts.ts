@@ -78,6 +78,7 @@ const dict_quotas = [
     {
         code: 'pdate',
         name: '日期分区',
+        type: 'number',
         rank: 1
     }, {
         code: 'pid',
@@ -101,39 +102,46 @@ const dict_quotas = [
         rank: 6
     }, {
         code: 'province',
-        name: '城市',
+        name: '省份',
         rank: 7
     }, {
         code: 'city',
-        name: '省份',
+        name: '城市',
         rank: 8
     }, {
         code: 'customer_type',
         name: '客户类型',
+        type: 'number',
         rank: 9
     }, {
         code: 'is_install',
         name: '是否装机',
+        type: 'number',
         rank: 10
     }, {
         code: 'is_active',
         name: '是否激活',
+        type: 'number',
         rank: 11
     }, {
         code: 'is_condition',
         name: '是否达标',
+        type: 'number',
         rank: 12
     }, {
         code: 'lock_type',
         name: '锁类型',
+        type: 'number',
         rank: 13
     }, {
         code: 'os_version',
         name: '系统版本',
+        type: 'number',
         rank: 14
     }, {
         code: 'user_identify',
         name: '用户身份',
+        type: 'number',
         rank: 15
     }, {
         code: 'level',
@@ -142,10 +150,12 @@ const dict_quotas = [
     }, {
         code: 'node_count',
         name: '节点数',
+        type: 'number',
         rank: 17
     }, {
         code: 'duration',
         name: '在线时长',
+        type: 'number',
         rank: 18
     }, {
         code: 'count_crash',
@@ -154,14 +164,17 @@ const dict_quotas = [
     }, {
         code: 'count_start',
         name: '启动次数',
+        type: 'number',
         rank: 20
     }, {
         code: 'pv',
         name: '访问量',
+        type: 'number',
         rank: 21
     }, {
-        code: 'out',
+        code: 'count_out',
         name: '跳出次数',
+        type: 'number',
         rank: 22
     }
 ]
@@ -194,11 +207,11 @@ const dict_quotasGroup = [
         rank: 6
     }, {
         code: 'province',
-        name: '城市',
+        name: '省份',
         rank: 7
     }, {
         code: 'city',
-        name: '省份',
+        name: '城市',
         rank: 8
     }, {
         code: 'customer_type',
@@ -253,7 +266,7 @@ const dict_quotasGroup = [
         name: '访问量',
         rank: 21
     }, {
-        code: 'out',
+        code: 'count_out',
         name: '跳出次数',
         rank: 22
     }
@@ -294,7 +307,7 @@ const dict_quotasSingle = [
         name: '访问量',
         rank: 21
     }, {
-        code: 'out',
+        code: 'count_out',
         name: '跳出次数',
         rank: 22
     }

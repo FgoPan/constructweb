@@ -17,7 +17,7 @@ const devConfig = {
     port: 3798,
     proxy: [{
         context: ['/api'],
-        target: 'http://10.2.37.17:12306/rest/test',
+        target: 'http://10.2.21.53:12306/rest/test',
         pathRewrite: { '^/api': '' }
     }]
   }

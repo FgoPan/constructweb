@@ -11,7 +11,8 @@ const Dict = types
     .model({
         code: types.string,
         name: types.string,
-        rank: types.number
+        rank: types.number,
+        type: 'string'
     });
 
 const DictList = types.array(Dict)

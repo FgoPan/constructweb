@@ -13,18 +13,18 @@ const SelectDicts = (props) => {
         setValue(_value)
     }, [_value])
 
-    const handleChange = (value) => {
-        onChange && onChange(value)
+    const handleChange = (value, option) => {
+        onChange && onChange(value, option)
     }
 
     if (dictName) {
         const dicts = useDicts(dictName)
 
-        return <Select style={{ width: '100%' }} value={value} defaultValue={defaultValue} onChange={(value) => handleChange(value)} {..._props}>
+        return <Select style={{ width: '100%' }} value={value} defaultValue={defaultValue} onChange={(value, option) => handleChange(value, option)} {..._props}>
             {children}
             {
                 dicts.map(item => {
-                    return <Option key={item.code} value={item.code}>{item.name}</Option>
+                    return <Option key={item.code} value={item.code} _props={...item}>{item.name}</Option>
                 })
             }
         </Select>
